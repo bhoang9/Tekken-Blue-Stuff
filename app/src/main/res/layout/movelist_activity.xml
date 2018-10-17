@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/lin_layout_moveList"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:id="@+id/char_name_moveList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="Asuka Kazama"
+        android:gravity="center_horizontal"
+        android:textColor="@android:color/black"/>
+
+    <ListView
+        android:id="@+id/move_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:drawSelectorOnTop="true"
+        android:orientation="vertical"
+        android:paddingBottom="16dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="16dp">
+    </ListView>
+
+</LinearLayout>

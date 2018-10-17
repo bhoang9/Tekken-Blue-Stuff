@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dialog_bg"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/char_img_charOpt"
+            android:layout_width="136dp"
+            android:layout_height="168dp"
+            android:layout_gravity="center_horizontal"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/oscar_img" />
+
+        <TextView
+            android:id="@+id/property_move_command"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            tools:text="1, 1, 2"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@android:color/white"/>
+
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            >
+
+            <TableRow>
+                <TextView
+                    android:text="Startup"
+                    style="@style/properties_table_name"
+                     />
+                <TextView
+                    android:text="On Block"
+                    style="@style/properties_table_name"
+                    />
+                <TextView
+                    android:text="Hit"
+                    style="@style/properties_table_name"
+                    />
+
+                <TextView
+                    style="@style/properties_table_name"
+                    android:text="CH" />
+
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:id="@+id/property_start_frame"
+                    android:textColor="@android:color/white"
+                    />
+                <TextView
+                    android:id="@+id/property_move_block_frame"
+                    android:textColor="@android:color/white"
+                    />
+                <TextView
+                    android:id="@+id/property_hit_frame"
+                    android:textColor="@android:color/white"
+                    />
+                <TextView
+                    android:id="@+id/property_CH_frame"
+                    android:textColor="@android:color/white"
+                    />
+
+            </TableRow>
+        </TableLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="30dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Height: "
+            style="@style/properties_table_name"
+            />
+        <TextView
+            android:id="@+id/property_height"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="30dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/damage"
+
+            style="@style/properties_table_name"
+            />
+        <TextView
+            android:id="@+id/property_damage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="30dp">
+
+        <TextView
+            android:id="@+id/notes_property_string"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Notes: "
+            style="@style/properties_table_name"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/property_notes"
+            tools:text="tailspin"
+            android:textColor="@android:color/white"
+            />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

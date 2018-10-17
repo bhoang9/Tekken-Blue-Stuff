@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/white"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/char_img_charOpt"
+        android:layout_width="136dp"
+        android:layout_height="168dp"
+        android:layout_gravity="center_horizontal"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/oscar_img" />
+
+    <TextView
+        android:id="@+id/char_name_charOpt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="Asuka Kazama"
+        android:gravity="center_horizontal"
+        android:textColor="@android:color/black"/>
+
+    <TextView
+        android:id="@+id/moveList_opt"
+        android:layout_width="match_parent"
+        android:layout_height="88dp"
+        android:background="@color/backgroundColor"
+        android:text="Move List"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"/>
+
+    <TextView
+        android:id="@+id/combos_opt"
+        android:layout_width="match_parent"
+        android:layout_height="88dp"
+        android:background="@color/backgroundColor"
+        android:text="Combos"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:layout_marginBottom="24dp"/>
+
+
+</LinearLayout>

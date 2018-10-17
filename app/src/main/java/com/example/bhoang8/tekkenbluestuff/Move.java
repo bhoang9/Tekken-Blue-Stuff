@@ -1,0 +1,62 @@
+package com.example.bhoang8.tekkenbluestuff;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+public class Move {
+
+        JSONObject moves;
+    private String command;
+    private String start_frame;
+    private String block_frame;
+    private String hit_frame;
+    private String CH_frame;
+    private String hit_height;
+    private String damage;
+    private String notes;
+
+        public Move(String nCommand, String nStart_frame, String nBlock_frame, String nHit_frame,
+                    String nCH_frame, String nHit_height, String nDamage, String nNotes){
+
+            command = nCommand;
+            start_frame = nStart_frame;
+            block_frame = nBlock_frame;
+            hit_frame = nHit_frame;
+            CH_frame = nCH_frame;
+            hit_height = nHit_height;
+            damage = nDamage;
+            notes = nNotes;
+        }
+
+        public String getCommand(){
+            return command;
+        }
+
+        public String getStart_frame(){
+            return start_frame;
+        }
+
+        public String getBlock_frame(){
+            return block_frame;
+        }
+
+        public String getHit_frame(){
+            return hit_frame;
+        }
+
+        public String getCH_frame(){
+            return CH_frame;
+        }
+
+        public String getHit_height(){
+            return hit_height;
+        }
+
+        public String getDamage(){
+            return damage;
+        }
+
+        public String getNotes(){
+            return notes;
+        }
+}
