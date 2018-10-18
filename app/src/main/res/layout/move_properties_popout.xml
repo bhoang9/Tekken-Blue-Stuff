@@ -14,14 +14,14 @@
         android:layout_alignParentTop="true"
         android:orientation="vertical">
 
-        <ImageView
+        <pl.droidsonroids.gif.GifImageView
             android:id="@+id/char_img_charOpt"
-            android:layout_width="136dp"
-            android:layout_height="168dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:adjustViewBounds="true"
             android:scaleType="fitXY"
-            android:src="@drawable/oscar_img" />
+            android:src="@drawable/josie_gif2_max_compress" />
 
         <TextView
             android:id="@+id/property_move_command"
@@ -43,21 +43,21 @@
 
             <TableRow>
                 <TextView
-                    android:text="Startup"
+                    android:text="@string/startup_string"
                     style="@style/properties_table_name"
                      />
                 <TextView
-                    android:text="On Block"
+                    android:text="@string/on_block_string"
                     style="@style/properties_table_name"
                     />
                 <TextView
-                    android:text="Hit"
+                    android:text="@string/hit_string"
                     style="@style/properties_table_name"
                     />
 
                 <TextView
                     style="@style/properties_table_name"
-                    android:text="CH" />
+                    android:text="@string/ch_string" />
 
             </TableRow>
 
@@ -88,12 +88,13 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="15dp"
-        android:layout_marginLeft="30dp">
+        android:layout_marginLeft="30dp"
+        android:layout_marginStart="30dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Height: "
+            android:text="@string/height_string"
             style="@style/properties_table_name"
             />
         <TextView
@@ -109,7 +110,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="15dp"
-        android:layout_marginLeft="30dp">
+        android:layout_marginLeft="30dp"
+        android:layout_marginStart="30dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -131,13 +133,14 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="15dp"
-            android:layout_marginLeft="30dp">
+            android:layout_marginLeft="30dp"
+            android:layout_marginStart="30dp">
 
         <TextView
             android:id="@+id/notes_property_string"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Notes: "
+            android:text="@string/notes_string"
             style="@style/properties_table_name"
             />
 

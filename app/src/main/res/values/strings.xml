@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Tekken Blue Stuff</string>
     <string name="damage">Damage:</string>
+    <string name="startup_string">Startup</string>
+    <string name="on_block_string">On Block</string>
+    <string name="hit_string">Hit</string>
+    <string name="ch_string">CH</string>
+    <string name="height_string">Height:</string>
+    <string name="notes_string">Notes:</string>
 </resources>
