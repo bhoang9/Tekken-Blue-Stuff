@@ -7,4 +7,6 @@
     <string name="ch_string">CH</string>
     <string name="height_string">Height:</string>
     <string name="notes_string">Notes:</string>
+    <string name="move_list_string">Move List</string>
+    <string name="combos_string">Combos</string>
 </resources>

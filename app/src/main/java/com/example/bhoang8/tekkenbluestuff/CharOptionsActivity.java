@@ -2,8 +2,10 @@ package com.example.bhoang8.tekkenbluestuff;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.json.JSONObject;
@@ -14,15 +16,16 @@ public class CharOptionsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.character_options);
-
         Character currentChar = CharactersArrayList.global_arrayList.get(CharactersArrayList.get_arrayList_pos());
         final String character_name = currentChar.getCharName();
         final String character_moves = currentChar.getMoveList().toString();
 
-        TextView moveList_textView = (TextView) findViewById(R.id.moveList_opt);
-        TextView char_name_textView = (TextView) findViewById(R.id.char_name_charOpt);
+        TextView moveList_textView = findViewById(R.id.moveList_opt);
+        TextView char_name_textView = findViewById(R.id.char_name_charOpt);
+        ImageView char_pic_imageView = findViewById(R.id.char_img_charOpt);
+        int curr_char_img = getResources().getIdentifier("prof_" + character_name, "drawable", this.getPackageName());
 
-
+        char_pic_imageView.setImageResource(curr_char_img);
         char_name_textView.setText(character_name);
         moveList_textView.setOnClickListener(new View.OnClickListener() {
             @Override

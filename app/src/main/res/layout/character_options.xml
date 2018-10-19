@@ -11,12 +11,12 @@
 
     <ImageView
         android:id="@+id/char_img_charOpt"
-        android:layout_width="136dp"
-        android:layout_height="168dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:adjustViewBounds="true"
         android:scaleType="fitXY"
-        android:src="@drawable/oscar_img" />
+        android:src="@drawable/prof_geese" />
 
     <TextView
         android:id="@+id/char_name_charOpt"
@@ -31,7 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="88dp"
         android:background="@color/backgroundColor"
-        android:text="Move List"
+        android:text="@string/move_list_string"
         android:gravity="center"
         android:textColor="@android:color/white"
         android:layout_marginTop="24dp"
@@ -42,7 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="88dp"
         android:background="@color/backgroundColor"
-        android:text="Combos"
+        android:text="@string/combos_string"
         android:gravity="center"
         android:textColor="@android:color/white"
         android:layout_marginBottom="24dp"/>
