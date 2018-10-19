@@ -4,6 +4,7 @@
     <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:windowBackground">@color/appBackgroundColor</item>
     </style>
 
     <style name="characterStyle">

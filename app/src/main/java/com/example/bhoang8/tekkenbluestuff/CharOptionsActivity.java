@@ -17,13 +17,13 @@ public class CharOptionsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.character_options);
         Character currentChar = CharactersArrayList.global_arrayList.get(CharactersArrayList.get_arrayList_pos());
-        final String character_name = currentChar.getCharName();
+        final String character_name = get_present_name(currentChar.getCharName());
         final String character_moves = currentChar.getMoveList().toString();
 
         TextView moveList_textView = findViewById(R.id.moveList_opt);
         TextView char_name_textView = findViewById(R.id.char_name_charOpt);
         ImageView char_pic_imageView = findViewById(R.id.char_img_charOpt);
-        int curr_char_img = getResources().getIdentifier("prof_" + character_name, "drawable", this.getPackageName());
+        int curr_char_img = getResources().getIdentifier(("prof_" + character_name).toLowerCase(), "drawable", this.getPackageName());
 
         char_pic_imageView.setImageResource(curr_char_img);
         char_name_textView.setText(character_name);
@@ -36,6 +36,22 @@ public class CharOptionsActivity extends AppCompatActivity {
                 startActivity(moveListIntent);
             }
         });
+    }
+
+    private String get_present_name(String rawName){
+        switch(rawName){
+            case "devil-jin":
+                return "Devil_Jin";
+
+            case "lucky-chloe":
+                return "Lucky_Chloe";
+
+            case "master-raven":
+                return "Master_Raven";
+
+            default:
+                return rawName.substring(0,1).toUpperCase() + rawName.substring(1);
+        }
     }
 }
 

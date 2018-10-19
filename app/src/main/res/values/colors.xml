@@ -5,4 +5,5 @@
     <color name="colorAccent">#FF4081</color>
     <color name="backgroundColor">#003366</color>
     <color name="propertiesColor">#696969</color>
+    <color name="appBackgroundColor">#202020</color>
 </resources>
