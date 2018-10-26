@@ -1,22 +1,18 @@
 package com.example.bhoang8.tekkenbluestuff;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.List;
 
 public class CharListActivity extends AppCompatActivity {
     /*
@@ -34,7 +30,7 @@ public class CharListActivity extends AppCompatActivity {
 
         //Arraylist only created if one does not already exist
         if(CharactersArrayList.global_arrayList == null) {
-            CharactersArrayList.global_arrayList = new ArrayList<Character>();
+            CharactersArrayList.global_arrayList = new ArrayList<>();
 
 
             //Add all characters to arrayList when arrayList not yet assigned
@@ -46,7 +42,7 @@ public class CharListActivity extends AppCompatActivity {
             }
             */
 
-            //TODO: Have app pull data from SQL databases instead
+            //Pull character data from SQL db
             DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this, "JOSIE_frame_data.db");
             databaseAccess.open();
             String character_name = databaseAccess.get_character_name();

@@ -5,27 +5,28 @@ import org.json.JSONObject;
 
 public class Move {
 
-        JSONObject moves;
+    private String movelist_id;
     private String command;
     private String start_frame;
     private String block_frame;
     private String hit_frame;
-    private String CH_frame;
+    //private String CH_frame;
     private String hit_height;
     private String damage;
-    private String notes;
+    //private String notes;
 
-        public Move(String nCommand, String nStart_frame, String nBlock_frame, String nHit_frame,
-                    String nCH_frame, String nHit_height, String nDamage, String nNotes){
+        public Move(String nMoveList_id, String nCommand, String nStart_frame, String nBlock_frame,
+                    String nHit_frame, String nHit_height, String nDamage){
 
+            movelist_id = nMoveList_id;
             command = nCommand;
             start_frame = nStart_frame;
             block_frame = nBlock_frame;
             hit_frame = nHit_frame;
-            CH_frame = nCH_frame;
+            //CH_frame = nCH_frame;
             hit_height = nHit_height;
             damage = nDamage;
-            notes = nNotes;
+            //notes = nNotes;
         }
 
         public String getCommand(){
@@ -44,10 +45,11 @@ public class Move {
             return hit_frame;
         }
 
+        /*
         public String getCH_frame(){
             return CH_frame;
         }
-
+*/
         public String getHit_height(){
             return hit_height;
         }
@@ -55,8 +57,10 @@ public class Move {
         public String getDamage(){
             return damage;
         }
-
+        /*
         public String getNotes(){
             return notes;
         }
+*/
+        public String getMoveList_id() { return movelist_id; }
 }

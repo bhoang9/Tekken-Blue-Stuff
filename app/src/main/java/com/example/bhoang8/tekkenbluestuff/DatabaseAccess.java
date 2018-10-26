@@ -68,6 +68,6 @@ public class DatabaseAccess {
             cursor.moveToNext();
 
         }
-        return null;
+        return move_list;
     }
 }
