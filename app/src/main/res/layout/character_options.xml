@@ -27,8 +27,9 @@
         android:id="@+id/char_name_charOpt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text="Asuka Kazama"
+        tools:text="Goose"
         android:gravity="center_horizontal"
+        android:textSize="24sp"
         android:textColor="@android:color/white"
         android:textStyle="bold"/>
 

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class CharactersArrayList {
 
-    public static ArrayList<Character> global_arrayList;
+    public static ArrayList<Character> global_arrayList = null;
     private static int global_arrayList_position;
 
     public static int get_arrayList_pos(){

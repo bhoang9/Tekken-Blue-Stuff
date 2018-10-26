@@ -19,35 +19,46 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CharListActivity extends AppCompatActivity {
+    /*
     String[] character_array = {"akuma","alisa", "asuka", "bob", "bryan", "claudio", "devil-jin",
             "dragunov", "eddy","eliza","feng","gigas","heihachi",
             "hwoarang","jack7","jin","josie","katarina","kazuya",
             "king","kuma","lars","lei","law","lee","leo","lili",
             "lucky-chloe","master-raven","miguel","nina","noctis",
             "paul","shaheen","steve","xiaoyu","yoshimitsu"};
-
+    */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.characterlist_activity);
 
-        //TODO: Only have arraylist be crated on app start, else pull from existing
-        CharactersArrayList.global_arrayList = new ArrayList<Character>();
+        //Arraylist only created if one does not already exist
+        if(CharactersArrayList.global_arrayList == null) {
+            CharactersArrayList.global_arrayList = new ArrayList<Character>();
 
-        //Here, would need to add all characters to the arrayList
-        //get JSON containing character frame data
-        for(int i = 0; i < character_array.length; i++) {
-            String fileName = character_array[i] + "_frame_data";
-            JSONObject character_JSONObj = getJSON_obj(fileName);
-            add_character(character_JSONObj);
+
+            //Add all characters to arrayList when arrayList not yet assigned
+            /*
+            for(int i = 0; i < character_array.length; i++) {
+                String fileName = character_array[i] + "_frame_data";
+                JSONObject character_JSONObj = getJSON_obj(fileName);
+                add_character(character_JSONObj);
+            }
+            */
+
+            //TODO: Have app pull data from SQL databases instead
+            DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this, "JOSIE_frame_data.db");
+            databaseAccess.open();
+            String character_name = databaseAccess.get_character_name();
+            ArrayList<String[]> character_moves = databaseAccess.get_character_moves();
+            CharactersArrayList.global_arrayList.add(new Character(character_name, character_moves));
+
         }
-
         //Define character adapter for listview and init listView var
         CharacterAdapter characterAdapter = new CharacterAdapter(this,
                 CharactersArrayList.global_arrayList);
 
         ListView listView = (ListView) findViewById(R.id.character_list);
-
         listView.setAdapter(characterAdapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -84,7 +95,9 @@ public class CharListActivity extends AppCompatActivity {
         return nJsonObj;
     }
 
+    //TODO: add_character function in JSON implementation
     //add character to arrayList of characters
+    /*
     private void add_character(JSONObject nCharacter){
         String char_name;
         JSONArray char_moves;
@@ -98,5 +111,6 @@ public class CharListActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+    */
 
 }

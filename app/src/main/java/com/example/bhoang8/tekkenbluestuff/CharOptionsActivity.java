@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 public class CharOptionsActivity extends AppCompatActivity {
 
     @Override
@@ -18,7 +20,8 @@ public class CharOptionsActivity extends AppCompatActivity {
         setContentView(R.layout.character_options);
         Character currentChar = CharactersArrayList.global_arrayList.get(CharactersArrayList.get_arrayList_pos());
         final String character_name = get_present_name(currentChar.getCharName());
-        final String character_moves = currentChar.getMoveList().toString();
+        //final String character_moves = currentChar.getMoveList().toString();
+        final ArrayList<String[]> character_moves = currentChar.getMoveList();
 
         TextView moveList_textView = findViewById(R.id.moveList_opt);
         TextView char_name_textView = findViewById(R.id.char_name_charOpt);
