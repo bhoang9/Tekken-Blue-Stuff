@@ -55,10 +55,10 @@ public class MoveListActivity extends AppCompatActivity {
                 .getSerializable("CHARACTER_MOVES");
 
         character_name = getIntent().getExtras().getString("CHARACTER_NAME");
-        final LinearLayout lin_layout_movelist = (LinearLayout) findViewById(R.id.lin_layout_moveList);
-        TextView char_name = (TextView) findViewById(R.id.char_name_moveList);
-        ListView listView = (ListView) findViewById(R.id.move_list);
-        final ArrayList<Move> move_list = new ArrayList<Move>();
+        final LinearLayout lin_layout_movelist = findViewById(R.id.lin_layout_moveList);
+        TextView char_name = findViewById(R.id.char_name_moveList);
+        ListView listView = findViewById(R.id.move_list);
+        final ArrayList<Move> move_list = new ArrayList<>();
 
         //need to populate arraylist w/ moves
         try {
@@ -123,7 +123,8 @@ public class MoveListActivity extends AppCompatActivity {
                 move_properties_popup.setFocusable(true);
                 move_properties_popup.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-                String current_move = get_current_move_filename(character_name, i);
+                String current_move = get_current_move_filename(character_name,
+                        Integer.parseInt(move_list.get(i).getMoveList_id()));
                 TextView move_property_command =  move_properties_popout.findViewById((R.id.property_move_command));
                 TextView move_property_start_frame =  move_properties_popout.findViewById(R.id.property_start_frame);
                 TextView move_property_block_frame =  move_properties_popout.findViewById(R.id.property_move_block_frame);
@@ -166,7 +167,7 @@ public class MoveListActivity extends AppCompatActivity {
     }
 
     private String get_current_move_filename(String character_name, int position){
-        String current_move_file = character_name.toLowerCase() + "_move_" + Integer.toString(position + 1);
+        String current_move_file = character_name.toLowerCase() + "_move_" + Integer.toString(position);
 
         return current_move_file;
     }

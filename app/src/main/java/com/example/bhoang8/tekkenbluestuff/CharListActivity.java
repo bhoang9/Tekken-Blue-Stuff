@@ -15,14 +15,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 public class CharListActivity extends AppCompatActivity {
-    /*
-    String[] character_array = {"akuma","alisa", "asuka", "bob", "bryan", "claudio", "devil-jin",
-            "dragunov", "eddy","eliza","feng","gigas","heihachi",
-            "hwoarang","jack7","jin","josie","katarina","kazuya",
-            "king","kuma","lars","lei","law","lee","leo","lili",
-            "lucky-chloe","master-raven","miguel","nina","noctis",
-            "paul","shaheen","steve","xiaoyu","yoshimitsu"};
-    */
+
+    //Missing: geese, noctis, lei, anna
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,18 +37,35 @@ public class CharListActivity extends AppCompatActivity {
             */
 
             //Pull character data from SQL db
-            DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this, "JOSIE_frame_data.db");
-            databaseAccess.open();
-            String character_name = databaseAccess.get_character_name();
-            ArrayList<String[]> character_moves = databaseAccess.get_character_moves();
-            CharactersArrayList.global_arrayList.add(new Character(character_name, character_moves));
+            DatabaseAccess dbAccess;
+            String[] assetFiles;
+            try
+            {
+                assetFiles = getAssets().list("databases");
+                for(int i = 0; i < assetFiles.length; i++){
+                    //String char_name = character_array[i].toUpperCase();
+                    //String fileName = char_name + "_frame_data.db";
+                    String fileName = assetFiles[i];
+                    dbAccess = DatabaseAccess.getInstance(this, fileName);
+                    dbAccess.open();
+                    String character_name = dbAccess.get_character_name();
+                    ArrayList<String[]> character_moves = dbAccess.get_character_moves();
+                    CharactersArrayList.global_arrayList.add(new Character(character_name, character_moves));
+                    dbAccess.close();
+                    dbAccess.killInstance();
+
+                }
+            }catch(IOException e){
+                e.printStackTrace();
+
+            }
 
         }
         //Define character adapter for listview and init listView var
         CharacterAdapter characterAdapter = new CharacterAdapter(this,
                 CharactersArrayList.global_arrayList);
 
-        ListView listView = (ListView) findViewById(R.id.character_list);
+        ListView listView = findViewById(R.id.character_list);
         listView.setAdapter(characterAdapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
