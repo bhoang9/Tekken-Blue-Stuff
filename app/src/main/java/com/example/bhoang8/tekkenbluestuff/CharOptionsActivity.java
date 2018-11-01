@@ -19,7 +19,7 @@ public class CharOptionsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.character_options);
         Character currentChar = CharactersArrayList.global_arrayList.get(CharactersArrayList.get_arrayList_pos());
-        final String character_name = get_present_name(currentChar.getCharName());
+        final String character_name = currentChar.getCharName();
         //final String character_moves = currentChar.getMoveList().toString();
         final ArrayList<String[]> character_moves = currentChar.getMoveList();
 

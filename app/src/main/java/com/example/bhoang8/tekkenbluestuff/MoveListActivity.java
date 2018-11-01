@@ -7,6 +7,8 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
@@ -31,6 +33,8 @@ import pl.droidsonroids.gif.GifImageView;
 public class MoveListActivity extends AppCompatActivity {
     JSONArray char_moves_JSON = null;
     private PopupWindow move_properties_popup;
+    private ViewPager mPager;
+    private PagerAdapter mPagerAdapter;
 
 
     @Override
@@ -118,22 +122,22 @@ public class MoveListActivity extends AppCompatActivity {
                     move_properties_popup.setElevation(5.0f);
                 }
 
+                //mPager = findViewById(R.id.pager);
+                //mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
+
                 //popup window closes on clicking outside
                 move_properties_popup.setOutsideTouchable(true);
                 move_properties_popup.setFocusable(true);
                 move_properties_popup.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-                String current_move = get_current_move_filename(character_name,
+                String current_move = get_current_move_filename(character_name.toLowerCase(),
                         Integer.parseInt(move_list.get(i).getMoveList_id()));
                 TextView move_property_command =  move_properties_popout.findViewById((R.id.property_move_command));
                 TextView move_property_start_frame =  move_properties_popout.findViewById(R.id.property_start_frame);
                 TextView move_property_block_frame =  move_properties_popout.findViewById(R.id.property_move_block_frame);
                 TextView move_property_hit_frame =  move_properties_popout.findViewById(R.id.property_hit_frame);
-                TextView move_property_CH_frame =  move_properties_popout.findViewById(R.id.property_CH_frame);
                 TextView move_property_height =  move_properties_popout.findViewById(R.id.property_height);
                 TextView move_property_damage =  move_properties_popout.findViewById(R.id.property_damage);
-                TextView move_property_notes =  move_properties_popout.findViewById(R.id.property_notes);
-                TextView move_notes_property =  move_properties_popout.findViewById(R.id.notes_property_string);
                 GifImageView move_gif = move_properties_popout.findViewById(R.id.char_gif_charOpt);
 
 
@@ -145,20 +149,9 @@ public class MoveListActivity extends AppCompatActivity {
                 move_property_start_frame.setText(move_list.get(i).getStart_frame());
                 move_property_block_frame.setText(move_list.get(i).getBlock_frame());
                 move_property_hit_frame.setText(move_list.get(i).getHit_frame());
-                //move_property_CH_frame.setText(move_list.get(i).getCH_frame());
                 move_property_height.setText(move_list.get(i).getHit_height());
                 move_property_damage.setText(move_list.get(i).getDamage());
 
-                //If the move does not have notes, hide the notes texview
-                /*
-                if(move_list.get(i).getNotes().equals("")) {
-                    move_notes_property.setVisibility(View.GONE);
-                    move_property_notes.setVisibility(View.GONE);
-                }
-                else{
-                    move_property_notes.setText(move_list.get(i).getNotes());
-                }
-*/
                 move_properties_popup.showAtLocation(lin_layout_movelist, Gravity.CENTER,0,0);
             }
         });

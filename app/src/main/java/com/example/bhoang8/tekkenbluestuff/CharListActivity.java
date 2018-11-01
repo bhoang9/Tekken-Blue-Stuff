@@ -102,7 +102,7 @@ public class CharListActivity extends AppCompatActivity {
         return nJsonObj;
     }
 
-    //TODO: add_character function in JSON implementation
+    //add_character function in JSON implementation
     //add character to arrayList of characters
     /*
     private void add_character(JSONObject nCharacter){
