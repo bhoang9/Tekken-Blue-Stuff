@@ -23,10 +23,8 @@ public class Move {
             start_frame = nStart_frame;
             block_frame = nBlock_frame;
             hit_frame = nHit_frame;
-            //CH_frame = nCH_frame;
             hit_height = nHit_height;
             damage = nDamage;
-            //notes = nNotes;
         }
 
         public String getCommand(){
@@ -45,11 +43,6 @@ public class Move {
             return hit_frame;
         }
 
-        /*
-        public String getCH_frame(){
-            return CH_frame;
-        }
-*/
         public String getHit_height(){
             return hit_height;
         }
@@ -57,10 +50,6 @@ public class Move {
         public String getDamage(){
             return damage;
         }
-        /*
-        public String getNotes(){
-            return notes;
-        }
-*/
+
         public String getMoveList_id() { return movelist_id; }
 }

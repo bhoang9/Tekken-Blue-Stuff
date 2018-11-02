@@ -11,9 +11,13 @@
         android:id="@+id/char_name_moveList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         tools:text="Asuka Kazama"
         android:gravity="center_horizontal"
-        android:textColor="@android:color/black"/>
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:textSize="24sp"/>
+
 
     <ListView
         android:id="@+id/move_list"

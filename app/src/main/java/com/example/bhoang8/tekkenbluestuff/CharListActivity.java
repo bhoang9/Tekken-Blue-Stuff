@@ -26,16 +26,6 @@ public class CharListActivity extends AppCompatActivity {
         if(CharactersArrayList.global_arrayList == null) {
             CharactersArrayList.global_arrayList = new ArrayList<>();
 
-
-            //Add all characters to arrayList when arrayList not yet assigned
-            /*
-            for(int i = 0; i < character_array.length; i++) {
-                String fileName = character_array[i] + "_frame_data";
-                JSONObject character_JSONObj = getJSON_obj(fileName);
-                add_character(character_JSONObj);
-            }
-            */
-
             //Pull character data from SQL db
             DatabaseAccess dbAccess;
             String[] assetFiles;
@@ -43,8 +33,6 @@ public class CharListActivity extends AppCompatActivity {
             {
                 assetFiles = getAssets().list("databases");
                 for(int i = 0; i < assetFiles.length; i++){
-                    //String char_name = character_array[i].toUpperCase();
-                    //String fileName = char_name + "_frame_data.db";
                     String fileName = assetFiles[i];
                     dbAccess = DatabaseAccess.getInstance(this, fileName);
                     dbAccess.open();
@@ -77,6 +65,7 @@ public class CharListActivity extends AppCompatActivity {
         });
     }
 
+    /*
     //get JSON object containing character data
     private JSONObject getJSON_obj(String fileName){
         JSONObject nJsonObj = null;
@@ -119,5 +108,14 @@ public class CharListActivity extends AppCompatActivity {
         }
     }
     */
+
+    //Add all characters to arrayList when arrayList not yet assigned
+            /*
+            for(int i = 0; i < character_array.length; i++) {
+                String fileName = character_array[i] + "_frame_data";
+                JSONObject character_JSONObj = getJSON_obj(fileName);
+                add_character(character_JSONObj);
+            }
+            */
 
 }

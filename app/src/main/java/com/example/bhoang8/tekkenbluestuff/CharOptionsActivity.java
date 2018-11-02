@@ -20,16 +20,19 @@ public class CharOptionsActivity extends AppCompatActivity {
         setContentView(R.layout.character_options);
         Character currentChar = CharactersArrayList.global_arrayList.get(CharactersArrayList.get_arrayList_pos());
         final String character_name = currentChar.getCharName();
-        //final String character_moves = currentChar.getMoveList().toString();
         final ArrayList<String[]> character_moves = currentChar.getMoveList();
 
         TextView moveList_textView = findViewById(R.id.moveList_opt);
         TextView char_name_textView = findViewById(R.id.char_name_charOpt);
         ImageView char_pic_imageView = findViewById(R.id.char_img_charOpt);
-        int curr_char_img = getResources().getIdentifier(("prof_" + character_name).toLowerCase(), "drawable", this.getPackageName());
+
+        //Get resource ID of profile image for character
+        int curr_char_img = get_char_img_id(character_name);
 
         char_pic_imageView.setImageResource(curr_char_img);
         char_name_textView.setText(character_name);
+
+        //On click, go to the movelist of the character
         moveList_textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -41,6 +44,13 @@ public class CharOptionsActivity extends AppCompatActivity {
         });
     }
 
+    //Get resource ID of current character
+    private int get_char_img_id(String char_name){
+        return getResources().getIdentifier(("prof_" + char_name).toLowerCase(),
+                "drawable", this.getPackageName());
+    }
+
+    //Account for cases where character name has a space
     private String get_present_name(String rawName){
         switch(rawName){
             case "devil-jin":
@@ -57,33 +67,3 @@ public class CharOptionsActivity extends AppCompatActivity {
         }
     }
 }
-
-        /*
-        @Override
-        public void onSaveInstanceState(Bundle savedInstanceState){
-            super.onSaveInstanceState(savedInstanceState);
-            savedInstanceState.putString("CHARACTER_NAME", character_name);
-            savedInstanceState.putString("CHARACTER_MOVES", character_moves);
-
-        }
-
-        @Override
-        public void onRestoreInstanceState(Bundle savedInstanceState){
-            super.onSaveInstanceState(savedInstanceState);
-            character_name = savedInstanceState.getString("CHARACTER_NAME");
-            character_moves = savedInstanceState.getString("CHARACTER_MOVES");
-        }
-    }
-*/
-    /*
-            if(getIntent().hasExtra("CHARACTER_NAME") && getIntent().hasExtra("CHARACTER_MOVES")){
-
-            if(savedInstanceState != null){
-                character_name = savedInstanceState.getString("CHARACTER_NAME");
-                character_moves = savedInstanceState.getString("CHARACTER_MOVES");
-            }
-            else{
-                character_name = getIntent().getExtras().getString("CHARACTER_NAME");
-                character_moves = getIntent().getExtras().getString("CHARACTER_MOVES");
-            }
-            */
