@@ -6,4 +6,4 @@ Currently: Uses frame data gathered from ToolAssisted. Will update all to season
 
 Goals: Assign every move with its corresponding gif.
 
-More detailed reasons for why things are made the way they are in DETAILS.md
+More detailed reasons for why things are implemented can be found on my blog.
