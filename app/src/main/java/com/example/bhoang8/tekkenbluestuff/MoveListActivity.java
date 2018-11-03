@@ -38,9 +38,6 @@ import pl.droidsonroids.gif.GifImageView;
 public class MoveListActivity extends AppCompatActivity {
     JSONArray char_moves_JSON = null;
     private PopupWindow move_properties_popup;
-    private ViewPager mPager;
-    private PagerAdapter mPagerAdapter;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,13 +61,34 @@ public class MoveListActivity extends AppCompatActivity {
         final LinearLayout lin_layout_movelist = findViewById(R.id.lin_layout_moveList);
         TextView char_name = findViewById(R.id.char_name_moveList);
         ListView listView = findViewById(R.id.move_list);
+        final SearchView searchView = findViewById(R.id.moveList_search);
 
         //populate arraylist w/ character's moves
         final ArrayList<Move> move_list = fill_movelist(character_moves);
 
         char_name.setText(character_name);
-        MoveAdapter moveAdapter = new MoveAdapter(this, move_list);
+        final MoveAdapter moveAdapter = new MoveAdapter(this, move_list);
         listView.setAdapter(moveAdapter);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String search_command) {
+                moveAdapter.getFilter().filter(search_command);
+                return true;
+            }
+        });
+
+        searchView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                searchView.setIconified(false);
+            }
+        });
 
         //onClick, display move properties in a popout window
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -86,38 +104,26 @@ public class MoveListActivity extends AppCompatActivity {
                 if(Build.VERSION.SDK_INT >= 21){
                     move_properties_popup.setElevation(5.0f);
                 }
-
-                //mPager = findViewById(R.id.pager);
-                //mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
-
                 //popup window closes on clicking outside
                 move_properties_popup.setOutsideTouchable(true);
                 move_properties_popup.setFocusable(true);
                 move_properties_popup.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
+                //TODO: Possibly find a way to make this more efficient
+                ArrayList<Move> filtered_moves = moveAdapter.getFiltered_moves();
+
+                //Set textviews to move properties
                 TextView[] move_property_fields = get_move_property_fields(move_properties_popout);
-                TextView move_property_command =  move_property_fields[0];
-                TextView move_property_start_frame =  move_property_fields[1];
-                TextView move_property_block_frame =  move_property_fields[2];
-                TextView move_property_hit_frame =  move_property_fields[3];
-                TextView move_property_height =  move_property_fields[4];
-                TextView move_property_damage =  move_property_fields[5];
+                set_move_property_fields(move_property_fields, filtered_moves.get(i));
+
                 GifImageView move_gif = move_properties_popout.findViewById(R.id.char_gif_charOpt);
 
                 //Get the gif associated w/ the current move being looked at
                 String current_move = get_current_move_filename(character_name.toLowerCase(),
-                        Integer.parseInt(move_list.get(i).getMoveList_id()));
+                        Integer.parseInt(filtered_moves.get(i).getMoveList_id()));
                 int current_move_gif = getResources().getIdentifier(current_move, "drawable",
                         getApplicationContext().getPackageName());
                 move_gif.setImageResource(current_move_gif);
-
-                //Set textviews to move properties
-                move_property_command.setText(move_list.get(i).getCommand());
-                move_property_start_frame.setText(move_list.get(i).getStart_frame());
-                move_property_block_frame.setText(move_list.get(i).getBlock_frame());
-                move_property_hit_frame.setText(move_list.get(i).getHit_frame());
-                move_property_height.setText(move_list.get(i).getHit_height());
-                move_property_damage.setText(move_list.get(i).getDamage());
 
                 move_properties_popup.showAtLocation(lin_layout_movelist, Gravity.CENTER,0,0);
             }
@@ -180,6 +186,15 @@ public class MoveListActivity extends AppCompatActivity {
         retArr[5] =  move_prop_popout.findViewById(R.id.property_damage);
 
         return retArr;
+    }
+
+    private void set_move_property_fields(TextView[] move_property_fields, Move nMove){
+        move_property_fields[0].setText(nMove.getCommand());
+        move_property_fields[1].setText(nMove.getStart_frame());
+        move_property_fields[2].setText(nMove.getBlock_frame());
+        move_property_fields[3].setText(nMove.getHit_frame());
+        move_property_fields[4].setText(nMove.getHit_height());
+        move_property_fields[5].setText(nMove.getDamage());
     }
 
 }

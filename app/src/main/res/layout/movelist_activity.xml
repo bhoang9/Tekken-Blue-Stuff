@@ -18,6 +18,15 @@
         android:textStyle="bold"
         android:textSize="24sp"/>
 
+    <SearchView
+        android:id="@+id/moveList_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:queryHint="move command"
+        android:queryBackground="@android:color/white"
+        >
+
+    </SearchView>
 
     <ListView
         android:id="@+id/move_list"
