@@ -9,6 +9,15 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        android:text="Tekken Blue Stuff" />
+
+    <TextView
         android:id="@+id/char_main_act"
         android:layout_width="match_parent"
         android:layout_height="88dp"
@@ -27,7 +36,8 @@
         android:text="Guide"
         android:gravity="center"
         android:textColor="@android:color/white"
-        android:layout_marginBottom="24dp"/>
+        android:layout_marginBottom="24dp"
+        />
 
 
 </LinearLayout>

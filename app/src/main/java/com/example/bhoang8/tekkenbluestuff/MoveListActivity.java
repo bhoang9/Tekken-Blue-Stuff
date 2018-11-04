@@ -36,17 +36,17 @@ import java.util.ArrayList;
 import pl.droidsonroids.gif.GifImageView;
 
 public class MoveListActivity extends AppCompatActivity {
-    JSONArray char_moves_JSON = null;
-    private PopupWindow move_properties_popup;
+
+     ArrayList<?> character_moves = null;
+     String character_name = null;
+     ArrayList<Move> move_list = null;
+     JSONArray char_moves_JSON = null;
+     private PopupWindow move_properties_popup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.movelist_activity);
-
-        final ArrayList<?> character_moves;
-        final String character_name;
-
 
         if(verify_extras()){
             character_moves = (ArrayList<?>) getIntent().getExtras()
@@ -64,7 +64,7 @@ public class MoveListActivity extends AppCompatActivity {
         final SearchView searchView = findViewById(R.id.moveList_search);
 
         //populate arraylist w/ character's moves
-        final ArrayList<Move> move_list = fill_movelist(character_moves);
+        move_list = fill_movelist(character_moves);
 
         char_name.setText(character_name);
         final MoveAdapter moveAdapter = new MoveAdapter(this, move_list);
@@ -98,16 +98,13 @@ public class MoveListActivity extends AppCompatActivity {
                         getSystemService(LAYOUT_INFLATER_SERVICE);
 
                 View move_properties_popout = inflater.inflate(R.layout.move_properties_popout,null);
+
                 move_properties_popup = new PopupWindow(move_properties_popout,
                         ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT);
 
                 if(Build.VERSION.SDK_INT >= 21){
                     move_properties_popup.setElevation(5.0f);
                 }
-                //popup window closes on clicking outside
-                move_properties_popup.setOutsideTouchable(true);
-                move_properties_popup.setFocusable(true);
-                move_properties_popup.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
                 //TODO: Possibly find a way to make this more efficient
                 ArrayList<Move> filtered_moves = moveAdapter.getFiltered_moves();
@@ -125,6 +122,10 @@ public class MoveListActivity extends AppCompatActivity {
                         getApplicationContext().getPackageName());
                 move_gif.setImageResource(current_move_gif);
 
+                //popup window closes on clicking outside
+                move_properties_popup.setOutsideTouchable(true);
+                move_properties_popup.setFocusable(true);
+                move_properties_popup.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 move_properties_popup.showAtLocation(lin_layout_movelist, Gravity.CENTER,0,0);
             }
         });
