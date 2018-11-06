@@ -23,6 +23,7 @@ public class CharOptionsActivity extends AppCompatActivity {
         final ArrayList<String[]> character_moves = currentChar.getMoveList();
 
         TextView moveList_textView = findViewById(R.id.moveList_opt);
+        TextView keyMoves_textView = findViewById(R.id.keyMoves_opt);
         TextView char_name_textView = findViewById(R.id.char_name_charOpt);
         ImageView char_pic_imageView = findViewById(R.id.char_img_charOpt);
 
@@ -40,6 +41,16 @@ public class CharOptionsActivity extends AppCompatActivity {
                 moveListIntent.putExtra("CHARACTER_NAME", character_name);
                 moveListIntent.putExtra("CHARACTER_MOVES", character_moves);
                 startActivity(moveListIntent);
+            }
+        });
+
+        keyMoves_textView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent keyMovesIntent = new Intent(CharOptionsActivity.this, KeyMovesActivity.class);
+                keyMovesIntent.putExtra("CHARACTER_NAME", character_name);
+                keyMovesIntent.putExtra("CHARACTER_MOVES", character_moves);
+                startActivity(keyMovesIntent);
             }
         });
     }
