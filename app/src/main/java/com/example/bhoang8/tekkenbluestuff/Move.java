@@ -10,10 +10,8 @@ public class Move {
     private String start_frame;
     private String block_frame;
     private String hit_frame;
-    //private String CH_frame;
     private String hit_height;
     private String damage;
-    //private String notes;
 
         public Move(String nMoveList_id, String nCommand, String nStart_frame, String nBlock_frame,
                     String nHit_frame, String nHit_height, String nDamage){

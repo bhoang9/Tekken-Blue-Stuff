@@ -27,11 +27,11 @@ public class KeyMoveAdapter extends BaseExpandableListAdapter {
     }
 
     public Move getChild(int groupPosition, int childPosition){
-        return keyMoves.get(groupPosition).get(childPosition);
+        return keyMoves.get(keyMove_headers.get(groupPosition)).get(childPosition);
     }
 
     public int getChildrenCount(int groupPosition){
-        return keyMoves.get(groupPosition).size();
+        return keyMoves.get(keyMove_headers.get(groupPosition)).size();
     }
 
     @Override

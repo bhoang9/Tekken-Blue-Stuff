@@ -39,7 +39,12 @@ public class MoveListActivity extends AppCompatActivity {
 
      ArrayList<?> character_moves = null;
      String character_name = null;
+     TextView char_name;
+     ListView listView;
      ArrayList<Move> move_list = null;
+     MoveAdapter moveAdapter;
+     LinearLayout lin_layout_movelist;
+     SearchView searchView;
      JSONArray char_moves_JSON = null;
      private PopupWindow move_properties_popup;
 
@@ -58,16 +63,16 @@ public class MoveListActivity extends AppCompatActivity {
             character_name = null;
         }
 
-        final LinearLayout lin_layout_movelist = findViewById(R.id.lin_layout_moveList);
-        TextView char_name = findViewById(R.id.char_name_moveList);
-        ListView listView = findViewById(R.id.move_list);
-        final SearchView searchView = findViewById(R.id.moveList_search);
+        lin_layout_movelist = findViewById(R.id.lin_layout_moveList);
+        char_name = findViewById(R.id.char_name_moveList);
+        listView = findViewById(R.id.move_list);
+        searchView = findViewById(R.id.moveList_search);
 
         //populate arraylist w/ character's moves
         move_list = fill_movelist(character_moves);
 
         char_name.setText(character_name);
-        final MoveAdapter moveAdapter = new MoveAdapter(this, move_list);
+        moveAdapter = new MoveAdapter(this, move_list);
         listView.setAdapter(moveAdapter);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -133,7 +138,7 @@ public class MoveListActivity extends AppCompatActivity {
 
     }
 
-    private String get_current_move_filename(String character_name, int position){
+    public static String get_current_move_filename(String character_name, int position){
         String current_move_file = character_name.toLowerCase() + "_move_" + Integer.toString(position);
 
         return current_move_file;
@@ -168,6 +173,7 @@ public class MoveListActivity extends AppCompatActivity {
                 nMoveList.add(new Move(movelist_id, command, start_frame, block_frame,
                         hit_frame, hit_height, damage));
             }
+
         } catch(NullPointerException e){
             e.printStackTrace();
             return null;
@@ -177,7 +183,7 @@ public class MoveListActivity extends AppCompatActivity {
     }
 
     //Get the textView fields of the popout
-    private TextView[] get_move_property_fields(View move_prop_popout){
+    public static TextView[] get_move_property_fields(View move_prop_popout){
         TextView[] retArr = new TextView[6];
         retArr[0] =  move_prop_popout.findViewById((R.id.property_move_command));
         retArr[1] =  move_prop_popout.findViewById(R.id.property_start_frame);
@@ -189,7 +195,7 @@ public class MoveListActivity extends AppCompatActivity {
         return retArr;
     }
 
-    private void set_move_property_fields(TextView[] move_property_fields, Move nMove){
+    public static void set_move_property_fields(TextView[] move_property_fields, Move nMove){
         move_property_fields[0].setText(nMove.getCommand());
         move_property_fields[1].setText(nMove.getStart_frame());
         move_property_fields[2].setText(nMove.getBlock_frame());
