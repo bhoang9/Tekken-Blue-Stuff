@@ -106,12 +106,14 @@ public class KeyMovesActivity extends Activity {
         ArrayList<Move> list_14f = new ArrayList<>();
         ArrayList<Move> list_15f = new ArrayList<>();
         ArrayList<Move> list_tailspin = new ArrayList<>();
+        ArrayList<Move> list_throw = new ArrayList<>();
 
         list_headers.add("10F");
         list_headers.add("12F");
         list_headers.add("14F");
         list_headers.add("15F");
         list_headers.add("Tailspin");
+        list_headers.add("Throw");
 
         for(int i = 0; i < character_moves.size(); i++){
            String[] curr_move = (String[]) character_moves.get(i);
@@ -128,24 +130,23 @@ public class KeyMovesActivity extends Activity {
             String hit_height = curr_move[2];
 
             if(start_frame.contains("10")){
-                list_10f.add(new Move(curr_move[0],curr_move[1],curr_move[3],curr_move[4],
-                        curr_move[5],curr_move[2],curr_move[6]));
+                list_10f.add(new_move(curr_move));
             }
             else if(start_frame.contains("12")){
-                list_12f.add(new Move(curr_move[0],curr_move[1],curr_move[3],curr_move[4],
-                        curr_move[5],curr_move[2],curr_move[6]));
+                list_12f.add(new_move(curr_move));
             }
             else if(start_frame.contains("14")){
-                list_14f.add(new Move(curr_move[0],curr_move[1],curr_move[3],curr_move[4],
-                        curr_move[5],curr_move[2],curr_move[6]));
+                list_14f.add(new_move(curr_move));
             }
             else if(start_frame.contains("15")){
-                list_15f.add(new Move(curr_move[0],curr_move[1],curr_move[3],curr_move[4],
-                        curr_move[5],curr_move[2],curr_move[6]));
+                list_15f.add(new_move(curr_move));
             }
-            else if(hit_height.contains("SPIN")){
-                list_tailspin.add(new Move(curr_move[0],curr_move[1],curr_move[3],curr_move[4],
-                        curr_move[5],curr_move[2],curr_move[6]));
+
+            if(hit_height.contains("SPIN")){
+                list_tailspin.add(new_move(curr_move));
+            }
+            if(hit_height.contains("THROW")){
+                list_throw.add(new_move(curr_move));
             }
 
         }
@@ -155,6 +156,7 @@ public class KeyMovesActivity extends Activity {
         key_moves.put(list_headers.get(2), list_14f);
         key_moves.put(list_headers.get(3), list_15f);
         key_moves.put(list_headers.get(4), list_tailspin);
+        key_moves.put(list_headers.get(5), list_throw);
 
     }
 
@@ -163,5 +165,11 @@ public class KeyMovesActivity extends Activity {
         move_properties_popup.setFocusable(true);
         move_properties_popup.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         move_properties_popup.showAtLocation(lin_layout_keymoves, Gravity.CENTER,0,0);
+    }
+
+    private Move new_move(String[] curr_move){
+        Move new_move = new Move(curr_move[0],curr_move[1],curr_move[3],curr_move[4],
+                curr_move[5],curr_move[2],curr_move[6]);
+        return new_move;
     }
 }

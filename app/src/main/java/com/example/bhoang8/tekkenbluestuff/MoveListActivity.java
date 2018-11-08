@@ -40,12 +40,14 @@ public class MoveListActivity extends AppCompatActivity {
      ArrayList<?> character_moves = null;
      String character_name = null;
      TextView char_name;
-     ListView listView;
+     ListView movelist_listView;
      ArrayList<Move> move_list = null;
+     ArrayList<Move> filtered_moves;
      MoveAdapter moveAdapter;
      LinearLayout lin_layout_movelist;
      SearchView searchView;
      JSONArray char_moves_JSON = null;
+     View move_properties_popout;
      private PopupWindow move_properties_popup;
 
     @Override
@@ -65,16 +67,60 @@ public class MoveListActivity extends AppCompatActivity {
 
         lin_layout_movelist = findViewById(R.id.lin_layout_moveList);
         char_name = findViewById(R.id.char_name_moveList);
-        listView = findViewById(R.id.move_list);
+        movelist_listView = findViewById(R.id.move_list);
         searchView = findViewById(R.id.moveList_search);
 
+        set_searchview_properties();
+
+        char_name.setText(character_name);
         //populate arraylist w/ character's moves
         move_list = fill_movelist(character_moves);
 
-        char_name.setText(character_name);
         moveAdapter = new MoveAdapter(this, move_list);
-        listView.setAdapter(moveAdapter);
+        movelist_listView.setAdapter(moveAdapter);
 
+
+
+        //onClick, display move properties in a popout window
+        movelist_listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                LayoutInflater inflater = (LayoutInflater) getApplicationContext().
+                        getSystemService(LAYOUT_INFLATER_SERVICE);
+
+                move_properties_popout = inflater.inflate(R.layout.move_properties_popout,null);
+
+                move_properties_popup = new PopupWindow(move_properties_popout,
+                        ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT);
+
+                if(Build.VERSION.SDK_INT >= 21){
+                    move_properties_popup.setElevation(5.0f);
+                }
+
+                //TODO: Possibly find a way to make this more efficient
+                filtered_moves = moveAdapter.getFiltered_moves();
+
+                //Set textviews to move properties
+                TextView[] move_property_fields = get_move_property_fields(move_properties_popout);
+                set_move_property_fields(move_property_fields, filtered_moves.get(i));
+
+                GifImageView move_gif = move_properties_popout.findViewById(R.id.char_gif_charOpt);
+
+                //Get the gif associated w/ the current move being looked at
+                String current_move = get_current_move_filename(character_name.toLowerCase(),
+                        Integer.parseInt(filtered_moves.get(i).getMoveList_id()));
+                int current_move_gif = getResources().getIdentifier(current_move, "drawable",
+                        getApplicationContext().getPackageName());
+                move_gif.setImageResource(current_move_gif);
+
+                //popup window closes on clicking outside
+                set_popup_properties();
+            }
+        });
+
+    }
+
+    private void set_searchview_properties(){
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -95,51 +141,18 @@ public class MoveListActivity extends AppCompatActivity {
             }
         });
 
-        //onClick, display move properties in a popout window
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                LayoutInflater inflater = (LayoutInflater) getApplicationContext().
-                        getSystemService(LAYOUT_INFLATER_SERVICE);
-
-                View move_properties_popout = inflater.inflate(R.layout.move_properties_popout,null);
-
-                move_properties_popup = new PopupWindow(move_properties_popout,
-                        ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT);
-
-                if(Build.VERSION.SDK_INT >= 21){
-                    move_properties_popup.setElevation(5.0f);
-                }
-
-                //TODO: Possibly find a way to make this more efficient
-                ArrayList<Move> filtered_moves = moveAdapter.getFiltered_moves();
-
-                //Set textviews to move properties
-                TextView[] move_property_fields = get_move_property_fields(move_properties_popout);
-                set_move_property_fields(move_property_fields, filtered_moves.get(i));
-
-                GifImageView move_gif = move_properties_popout.findViewById(R.id.char_gif_charOpt);
-
-                //Get the gif associated w/ the current move being looked at
-                String current_move = get_current_move_filename(character_name.toLowerCase(),
-                        Integer.parseInt(filtered_moves.get(i).getMoveList_id()));
-                int current_move_gif = getResources().getIdentifier(current_move, "drawable",
-                        getApplicationContext().getPackageName());
-                move_gif.setImageResource(current_move_gif);
-
-                //popup window closes on clicking outside
-                move_properties_popup.setOutsideTouchable(true);
-                move_properties_popup.setFocusable(true);
-                move_properties_popup.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                move_properties_popup.showAtLocation(lin_layout_movelist, Gravity.CENTER,0,0);
-            }
-        });
-
-
     }
 
     public static String get_current_move_filename(String character_name, int position){
-        String current_move_file = character_name.toLowerCase() + "_move_" + Integer.toString(position);
+        String char_name;
+
+        if(character_name.contains("jack")){
+            char_name = "jack7";
+        }
+        else{
+            char_name = character_name;
+        }
+        String current_move_file = char_name + "_move_" + Integer.toString(position);
 
         return current_move_file;
     }
@@ -204,26 +217,14 @@ public class MoveListActivity extends AppCompatActivity {
         move_property_fields[5].setText(nMove.getDamage());
     }
 
-}
-/*
-    //Init options for searchable
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.options_menu, menu);
-
-        //Associate searchable config w/ the SearchView
-        SearchManager searchManager =
-                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView =
-                (SearchView) menu.findItem(R.id.search).getActionView();
-        searchView.setSearchableInfo(
-                searchManager.getSearchableInfo(getComponentName())
-        );
-
-        return true;
+    private void set_popup_properties(){
+        move_properties_popup.setOutsideTouchable(true);
+        move_properties_popup.setFocusable(true);
+        move_properties_popup.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        move_properties_popup.showAtLocation(lin_layout_movelist, Gravity.CENTER,0,0);
     }
-    */
+
+}
 
         /*
         try {
