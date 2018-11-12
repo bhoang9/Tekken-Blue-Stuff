@@ -42,13 +42,10 @@ public class MoveListActivity extends AppCompatActivity {
      TextView char_name;
      ListView movelist_listView;
      ArrayList<Move> move_list = null;
-     ArrayList<Move> filtered_moves;
      MoveAdapter moveAdapter;
      LinearLayout lin_layout_movelist;
      SearchView searchView;
-     JSONArray char_moves_JSON = null;
-     View move_properties_popout;
-     private PopupWindow move_properties_popup;
+     MovePopout move_popout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,42 +76,21 @@ public class MoveListActivity extends AppCompatActivity {
         moveAdapter = new MoveAdapter(this, move_list);
         movelist_listView.setAdapter(moveAdapter);
 
-
-
         //onClick, display move properties in a popout window
+        set_item_click();
+
+    }
+
+    private void set_item_click(){
         movelist_listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                LayoutInflater inflater = (LayoutInflater) getApplicationContext().
-                        getSystemService(LAYOUT_INFLATER_SERVICE);
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                move_popout = MovePopout.getInstance(getApplicationContext());
+                move_popout.set_filtered_moves(moveAdapter.getFiltered_moves());
+                move_popout.set_move_property_fields(move_popout.get_move(position));
+                move_popout.set_move_gif(move_popout.get_current_move_gif(character_name, position));
+                move_popout.set_popup_properties(lin_layout_movelist);
 
-                move_properties_popout = inflater.inflate(R.layout.move_properties_popout,null);
-
-                move_properties_popup = new PopupWindow(move_properties_popout,
-                        ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT);
-
-                if(Build.VERSION.SDK_INT >= 21){
-                    move_properties_popup.setElevation(5.0f);
-                }
-
-                //TODO: Possibly find a way to make this more efficient
-                filtered_moves = moveAdapter.getFiltered_moves();
-
-                //Set textviews to move properties
-                TextView[] move_property_fields = get_move_property_fields(move_properties_popout);
-                set_move_property_fields(move_property_fields, filtered_moves.get(i));
-
-                GifImageView move_gif = move_properties_popout.findViewById(R.id.char_gif_charOpt);
-
-                //Get the gif associated w/ the current move being looked at
-                String current_move = get_current_move_filename(character_name.toLowerCase(),
-                        Integer.parseInt(filtered_moves.get(i).getMoveList_id()));
-                int current_move_gif = getResources().getIdentifier(current_move, "drawable",
-                        getApplicationContext().getPackageName());
-                move_gif.setImageResource(current_move_gif);
-
-                //popup window closes on clicking outside
-                set_popup_properties();
             }
         });
 
@@ -141,20 +117,6 @@ public class MoveListActivity extends AppCompatActivity {
             }
         });
 
-    }
-
-    public static String get_current_move_filename(String character_name, int position){
-        String char_name;
-
-        if(character_name.contains("jack")){
-            char_name = "jack7";
-        }
-        else{
-            char_name = character_name;
-        }
-        String current_move_file = char_name + "_move_" + Integer.toString(position);
-
-        return current_move_file;
     }
 
     private Boolean verify_extras(){
@@ -195,55 +157,9 @@ public class MoveListActivity extends AppCompatActivity {
         return nMoveList;
     }
 
-    //Get the textView fields of the popout
-    public static TextView[] get_move_property_fields(View move_prop_popout){
-        TextView[] retArr = new TextView[6];
-        retArr[0] =  move_prop_popout.findViewById((R.id.property_move_command));
-        retArr[1] =  move_prop_popout.findViewById(R.id.property_start_frame);
-        retArr[2] =  move_prop_popout.findViewById(R.id.property_move_block_frame);
-        retArr[3] =  move_prop_popout.findViewById(R.id.property_hit_frame);
-        retArr[4] =  move_prop_popout.findViewById(R.id.property_height);
-        retArr[5] =  move_prop_popout.findViewById(R.id.property_damage);
 
-        return retArr;
-    }
 
-    public static void set_move_property_fields(TextView[] move_property_fields, Move nMove){
-        move_property_fields[0].setText(nMove.getCommand());
-        move_property_fields[1].setText(nMove.getStart_frame());
-        move_property_fields[2].setText(nMove.getBlock_frame());
-        move_property_fields[3].setText(nMove.getHit_frame());
-        move_property_fields[4].setText(nMove.getHit_height());
-        move_property_fields[5].setText(nMove.getDamage());
-    }
 
-    private void set_popup_properties(){
-        move_properties_popup.setOutsideTouchable(true);
-        move_properties_popup.setFocusable(true);
-        move_properties_popup.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        move_properties_popup.showAtLocation(lin_layout_movelist, Gravity.CENTER,0,0);
-    }
+
 
 }
-
-        /*
-        try {
-            char_moves_JSON = new JSONArray(character_moves);
-            for (int i = 0; i < char_moves_JSON.length(); i++) {
-                JSONObject currentMove = char_moves_JSON.getJSONObject(i);
-                String command = currentMove.optString("command");
-                String start_frame = currentMove.optString("start_frame");
-                String block_frame = currentMove.optString("block_frame");
-                String hit_frame = currentMove.optString("hit_frame");
-                String CH_frame = currentMove.optString("CH_frame");
-                String hit_height = currentMove.optString("hit_height");
-                String damage = currentMove.optString("damage");
-                String notes = currentMove.optString("notes");
-                move_list.add(new Move(command, start_frame, block_frame, hit_frame, CH_frame,
-                        hit_height,damage, notes));
-                Log.d("move_list addition", command);
-            }
-        } catch(JSONException e){
-            e.printStackTrace();
-        }
-        */

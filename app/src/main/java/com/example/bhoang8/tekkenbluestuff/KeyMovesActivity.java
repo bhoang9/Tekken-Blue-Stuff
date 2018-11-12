@@ -31,10 +31,9 @@ public class KeyMovesActivity extends Activity {
     List<String> list_headers;
     HashMap<String, ArrayList<Move>> key_moves;
     String character_name;
-    GifImageView move_gif;
     ArrayList<?> character_moves;
     LinearLayout lin_layout_keymoves;
-    PopupWindow move_properties_popup;
+    MovePopout move_popout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -64,35 +63,11 @@ public class KeyMovesActivity extends Activity {
         keyMoveListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                LayoutInflater inflater = (LayoutInflater) getApplicationContext().
-                        getSystemService(LAYOUT_INFLATER_SERVICE);
-
-                View move_properties_popout = inflater.inflate(R.layout.move_properties_popout,null);
-
-                move_properties_popup = new PopupWindow(move_properties_popout,
-                        ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT);
-
-                if(Build.VERSION.SDK_INT >= 21){
-                    move_properties_popup.setElevation(5.0f);
-                }
-
-                //Get the filtered list with the header of the group position
-                ArrayList<Move> filtered_moves = key_moves.get(list_headers.get(groupPosition));
-
-                TextView[] move_property_fields = MoveListActivity.get_move_property_fields(move_properties_popout);
-                MoveListActivity.set_move_property_fields(move_property_fields, filtered_moves.get(childPosition));
-
-                move_gif = move_properties_popout.findViewById(R.id.char_gif_charOpt);
-
-                String current_move = MoveListActivity.get_current_move_filename(character_name.toLowerCase(),
-                        Integer.parseInt(filtered_moves.get(childPosition).getMoveList_id()));
-
-                int current_move_gif = getResources().getIdentifier(current_move, "drawable",
-                        getApplicationContext().getPackageName());
-                move_gif.setImageResource(current_move_gif);
-
-                set_popup_properties();
-
+                move_popout = MovePopout.getInstance(getApplicationContext());
+                move_popout.set_filtered_moves(key_moves.get(list_headers.get(groupPosition)));
+                move_popout.set_move_property_fields(move_popout.get_move(childPosition));
+                move_popout.set_move_gif(move_popout.get_current_move_gif(character_name, childPosition));
+                move_popout.set_popup_properties(lin_layout_keymoves);
                 return true;
             }
         });
@@ -158,13 +133,6 @@ public class KeyMovesActivity extends Activity {
         key_moves.put(list_headers.get(4), list_tailspin);
         key_moves.put(list_headers.get(5), list_throw);
 
-    }
-
-    private void set_popup_properties(){
-        move_properties_popup.setOutsideTouchable(true);
-        move_properties_popup.setFocusable(true);
-        move_properties_popup.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        move_properties_popup.showAtLocation(lin_layout_keymoves, Gravity.CENTER,0,0);
     }
 
     private Move new_move(String[] curr_move){
