@@ -18,14 +18,19 @@ public class CharOptionsActivity extends AppCompatActivity {
     TextView keyMoves_textView;
     TextView char_name_textView;
     ImageView char_pic_imageView;
+    Character currentChar;
+    String character_name;
+    ArrayList<String[]> character_moves;
+    CharactersArrayList global_char_list = CharactersArrayList.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.character_options);
-        Character currentChar = CharactersArrayList.global_arrayList.get(CharactersArrayList.get_arrayList_pos());
-        final String character_name = currentChar.getCharName();
-        final ArrayList<String[]> character_moves = currentChar.getMoveList();
+
+        currentChar = global_char_list.get_current_character();
+        character_name = currentChar.getCharName();
+        character_moves = currentChar.getMoveList();
 
         init_textViews();
         set_char_display(character_name);
@@ -50,12 +55,6 @@ public class CharOptionsActivity extends AppCompatActivity {
                 startActivity(keyMovesIntent);
             }
         });
-    }
-
-    //Get resource ID of current character
-    private int get_char_img_id(String char_name){
-        return getResources().getIdentifier(("prof_" + char_name).toLowerCase(),
-                "drawable", this.getPackageName());
     }
 
     private void init_textViews(){
@@ -86,6 +85,28 @@ public class CharOptionsActivity extends AppCompatActivity {
                 break;
             default:
                 char_name_textView.setText(char_name);
+        }
+
+    }
+
+    //Get resource ID of current character
+    private int get_char_img_id(String char_name){
+        switch(char_name){
+            case "CHLOE":
+                return getResources().getIdentifier(("prof_" + "luckychloe").toLowerCase(),
+                        "drawable", this.getPackageName());
+
+            case "JACK-7":
+                return getResources().getIdentifier(("prof_" + "jack7").toLowerCase(),
+                        "drawable", this.getPackageName());
+
+            case "RAVEN":
+                return getResources().getIdentifier(("prof_" + "masterraven").toLowerCase(),
+                        "drawable", this.getPackageName());
+
+            default:
+                return getResources().getIdentifier(("prof_" + char_name).toLowerCase(),
+                        "drawable", this.getPackageName());
         }
 
     }

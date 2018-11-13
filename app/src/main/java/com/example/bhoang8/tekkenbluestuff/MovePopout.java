@@ -21,7 +21,6 @@ import pl.droidsonroids.gif.GifImageView;
 
 public class MovePopout extends Application {
 
-
     private static MovePopout instance;
     Context context;
     LayoutInflater inflater;

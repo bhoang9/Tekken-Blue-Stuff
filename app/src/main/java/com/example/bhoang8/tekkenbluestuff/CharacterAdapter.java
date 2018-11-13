@@ -11,6 +11,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 public class CharacterAdapter extends ArrayAdapter<Character> {
+    TextView character_name;
 
     public CharacterAdapter(Activity context, ArrayList<Character> characters){
         super(context, 0, characters);
@@ -25,11 +26,28 @@ public class CharacterAdapter extends ArrayAdapter<Character> {
         }
 
         Character currentCharacter = getItem(position);
-        TextView character_name = (TextView) listItemView.findViewById(R.id.char_name_listItem);
-
-        character_name.setText(currentCharacter.getCharName());
+        character_name = listItemView.findViewById(R.id.char_name_listItem);
+        set_char_name_listItem(currentCharacter.getCharName());
 
         return listItemView;
         }
+
+    //Set name displayed as the list item. Checks for particular cases where name has space or dash
+    private void set_char_name_listItem(String char_name){
+        switch(char_name){
+            case "CHLOE":
+                character_name.setText("LUCKY CHLOE");
+                break;
+            case "DEVILJIN":
+                character_name.setText("DEVIL JIN");
+                break;
+            case "RAVEN":
+                character_name.setText("MASTER RAVEN");
+                break;
+            default:
+                character_name.setText(char_name);
+        }
+
+    }
     }
 

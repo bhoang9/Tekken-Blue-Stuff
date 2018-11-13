@@ -75,7 +75,6 @@ public class MoveAdapter extends BaseAdapter implements Filterable {
         return nFilter;
     }
 
-    //TODO: Figure out way to implement multiple filters
     private class ItemFilter extends Filter{
         @Override
         protected FilterResults performFiltering(CharSequence constraint){
@@ -117,22 +116,3 @@ public class MoveAdapter extends BaseAdapter implements Filterable {
     }
 
 }
-
-    /*
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        View listItemView = convertView;
-
-        if (listItemView == null) {
-            listItemView = LayoutInflater.from(getContext()).inflate(
-                    R.layout.move_list_item, parent, false);
-        }
-
-        Move currentMove = getItem(position);
-        TextView move_command = (TextView) listItemView.findViewById(R.id.move_command);
-
-        move_command.setText(currentMove.getCommand());
-
-        return listItemView;
-    }
-*/

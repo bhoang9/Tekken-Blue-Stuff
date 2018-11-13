@@ -13,8 +13,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TextView charTextView = (TextView) findViewById(R.id.char_main_act);
-        TextView guideTextView = (TextView) findViewById(R.id.guide_main_act);
+        TextView charTextView = findViewById(R.id.char_main_act);
+        TextView guideTextView = findViewById(R.id.guide_main_act);
 
         charTextView.setOnClickListener(new View.OnClickListener(){
             @Override
