@@ -8,6 +8,13 @@
 + GIFs of each move
 + Filtered "Key Moves" for movelists that sorts by Startup Frames, Spin, and Throw
 
+
+![readme_charlist](https://github.com/bhoang9/Tekken-Blue-Stuff/blob/master/app/src/main/assets/readme_images/readme_charlist.png)
+![readme_character](https://github.com/bhoang9/Tekken-Blue-Stuff/blob/master/app/src/main/assets/readme_images/readme_character.png)
+![readme_movelist](https://github.com/bhoang9/Tekken-Blue-Stuff/blob/master/app/src/main/assets/readme_images/readme_movelist.png)
+![readme_keymove](https://github.com/bhoang9/Tekken-Blue-Stuff/blob/master/app/src/main/assets/readme_images/readme_keymove.png)
+![readme_gif](https://github.com/bhoang9/Tekken-Blue-Stuff/blob/master/app/src/main/assets/readme_images/readme_gif.png)
+
 ## Limitations
 + The nature of frame data from TOOLASSISTED mirrors the exact way the game processes it,
 meaning there are some inaccuracies.
