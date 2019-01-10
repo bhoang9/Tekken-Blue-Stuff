@@ -25,4 +25,4 @@ meaning there are some inaccuracies.
 + Given the size of each character's collection of GIFs for their moves, they could not all
 fit in one Github repo, so only Josie's are pushed as an example.
 
-More detailed reasons for why things are implemented can be found on my blog.
+
